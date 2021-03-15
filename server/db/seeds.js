@@ -2,7 +2,7 @@ use brokerinsights;
 
 db.dropDatabase();
 
-db.clients.insertOne([{
+db.clients.insertMany([{
   "client": {
     "name": "Achme Broker Ltd",
     "policies": [
