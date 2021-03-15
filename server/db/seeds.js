@@ -2,8 +2,8 @@ use brokerinsights;
 
 db.dropDatabase();
 
-db.clients.insertMany([{
-  "client": {
+db.clients.insertMany([
+  {"client": {
     "name": "Achme Broker Ltd",
     "policies": [
       {
@@ -35,5 +35,5 @@ db.clients.insertMany([{
   			"insurer_name": "QBE"
 		  }
     ]
-  }
-}]);
+  }}
+]);
