@@ -16,11 +16,23 @@ const createRouter = function(collection) {
       });
   });
 
-  router.get("/:id", (req, res) => {
+  router.get("/id/:id", (req, res) => {
     const id = ObjectId(req.params.id);
     collection
       .findOne({ _id: id })
       .then(docs => res.json(docs))
+      .catch(error => {
+        console.error(error);
+        res.status(500);
+        res.json({ status: 500, error: error });
+      });
+  });
+
+  router.get("/policies/id/:id", (req, res) => {
+    const id = ObjectId(req.params.id);
+    collection
+      .findOne({ _id: id })
+      .then(docs => res.json(docs.client.policies))
       .catch(error => {
         console.error(error);
         res.status(500);
