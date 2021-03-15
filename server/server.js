@@ -15,7 +15,7 @@ MongoClient.connect("mongodb://localhost:27017", (error, client) => {
 
   const db = client.db("brokerinsights");
   const clientsCollection = db.collection("clients");
-  const clientsRouter = createRouter(clientCollection);
+  const clientsRouter = createRouter(clientsCollection);
   app.use("/api/clients", clientsRouter);
 
   app.listen(3000, function() {
