@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vue": "^2.6.12",
-    "webpack": "^5.25.0"
+    "core-js": "^3.9.1",
+    "vue": "^2.6.12"
   }
 }
