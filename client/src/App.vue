@@ -4,12 +4,19 @@
     <div class="home-page" id="home-page">
       <home-page />
     </div>
+    <div class="clients" v-if="this.display == clients">
+      
+    </div>
+    <div class="policies" v-if="this.display == policies">
+
+    </div>
   </div>
 
 </template>
 
 <script>
 import { eventBus } from "./main.js";
+import ClientServices from "./services/ClientServices.js";
 import HomePage from "./components/HomePage.vue";
 
 export default {
@@ -17,13 +24,21 @@ export default {
 
   data() {
     return {
-      clients: []
+      clients: [],
+      policies: [],
+      display: "none"
     };
   },
 
   mounted() {
-    eventBus.$on("get-policies", client => {
-      this.displayPolicies(client);
+    ClientServices.getClients().then(clients => (this.clients = clients));
+
+    eventBus.$on("show-clients", clients => {
+      this.displayClients();
+    })
+
+    eventBus.$on("show-policies", id => {
+      this.displayPolicies(id);
     });
   },
 
@@ -32,8 +47,13 @@ export default {
   },
 
   methods: {
-    displayPolicies(client) {
-      this.display = policies
+    displayClients() {
+      this.display = "clients"
+    },
+
+    displayPolicies(id) {
+      ClientServices.getPoliciesById(id).then(policies => (this.policies = policies));
+      this.display = "policies"
     }
   }
 };
