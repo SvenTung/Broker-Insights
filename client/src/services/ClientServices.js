@@ -11,6 +11,11 @@ export default {
     return fetch(baseURL + id).then(res => res.json());
   },
 
+  //gets a client's policies
+  getPoliciesById(id) {
+    return fetch(baseURL + "/policies/" + id).then(res => res.json());
+  },
+
   //adds a client to database
   postUser(payload) {
     return fetch(baseURL, {
