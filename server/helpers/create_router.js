@@ -4,6 +4,7 @@ const ObjectId = require("mongodb").ObjectID;
 const createRouter = function(collection) {
   const router = express.Router();
 
+  //gets all clients
   router.get("/", (req, res) => {
     collection
       .find()
@@ -16,19 +17,8 @@ const createRouter = function(collection) {
       });
   });
 
-  router.get("/id/:id", (req, res) => {
-    const id = ObjectId(req.params.id);
-    collection
-      .findOne({ _id: id })
-      .then(docs => res.json(docs))
-      .catch(error => {
-        console.error(error);
-        res.status(500);
-        res.json({ status: 500, error: error });
-      });
-  });
-
-  router.get("/policies/id/:id", (req, res) => {
+  //gets the policies for a client by id
+  router.get("/policies/:id", (req, res) => {
     const id = ObjectId(req.params.id);
     collection
       .findOne({ _id: id })
@@ -40,6 +30,20 @@ const createRouter = function(collection) {
       });
   });
 
+  //gets client by id
+  router.get("/:id", (req, res) => {
+    const id = ObjectId(req.params.id);
+    collection
+      .findOne({ _id: id })
+      .then(docs => res.json(docs))
+      .catch(error => {
+        console.error(error);
+        res.status(500);
+        res.json({ status: 500, error: error });
+      });
+  });
+
+  //creates a client
   router.post("/", (req, res) => {
     collection
       .insertOne(req.body)
@@ -51,6 +55,7 @@ const createRouter = function(collection) {
       });
   });
 
+  //updates a client
   router.put("/:id", (req, res) => {
     const id = ObjectId(req.params.id);
     collection
@@ -67,6 +72,7 @@ const createRouter = function(collection) {
       });
   });
 
+  //deletes a client
   router.delete("/:id", (req, res) => {
     const id = ObjectId(req.params.id);
     collection
