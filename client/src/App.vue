@@ -4,11 +4,13 @@
     <div class="home-page" id="home-page">
       <home-page />
     </div>
-    <div class="clients" v-if="this.display == clients">
-
+    <div class="clients" v-if="this.display == 'clients'">
+      <h1>Clients List</h1>
+      <clients-list :clients="this.clients" />
     </div>
-    <div class="policies" v-if="this.display == policies">
-
+    <div class="policies" v-if="this.display == 'policies'">
+      <p> {{this.client.client.name}} </p>
+      <policies-list :policies="this.client.client.policies" />
     </div>
   </div>
 
@@ -27,6 +29,7 @@ export default {
   data() {
     return {
       clients: [],
+      client: [],
       policies: [],
       display: "none"
     };
@@ -41,6 +44,13 @@ export default {
 
     eventBus.$on("show-policies", id => {
       this.displayPolicies(id);
+      console.log(this.client);
+    });
+
+    eventBus.$on("policy-deleted", counter => {
+      var updatedClient = this.client
+      updatedClient.client.policies.splice(counter, 1)
+      ClientServices.updatePolicies(updatedClient)
     });
   },
 
@@ -56,7 +66,11 @@ export default {
     },
 
     displayPolicies(id) {
-      ClientServices.getPoliciesById(id).then(policies => (this.policies = policies));
+      for (var client of this.clients) {
+        if (client._id == id) {
+          this.client = client
+        }
+      };
       this.display = "policies"
     }
   }
