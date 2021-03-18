@@ -10,7 +10,7 @@
     </div>
     <div class="policies" v-if="this.display == 'policies'">
       <p> {{this.client.client.name}} </p>
-      <policies-list :policies="this.client.client.policies" />
+      <policies-table :policies="this.client.client.policies" />
     </div>
   </div>
 
@@ -21,7 +21,7 @@ import { eventBus } from "./main.js";
 import ClientServices from "./services/ClientServices.js";
 import HomePage from "./components/HomePage.vue";
 import ClientsList from "./components/ClientsList.vue";
-import PoliciesList from "./components/PoliciesList.vue";
+import PoliciesTable from "./components/PoliciesTable.vue";
 
 export default {
   name: "app",
@@ -57,7 +57,7 @@ export default {
   components: {
     "home-page": HomePage,
     "clients-list": ClientsList,
-    "policies-list": PoliciesList,
+    "policies-table": PoliciesTable,
   },
 
   methods: {
