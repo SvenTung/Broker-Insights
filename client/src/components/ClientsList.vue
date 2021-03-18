@@ -1,21 +1,18 @@
 <template lang="html">
   <div class="clients-list">
-    <list-item v-for="(client, index) in this.clients" :client="client" :counter="index"/>
+    <client-list-item v-for="(client, index) in this.clients" :client="client" :counter="index"/>
   </div>
 
 </template>
 
 <script>
-import ListItem from "./ListItem.vue";
+import ClientListItem from "./ClientListItem.vue";
 
 export default {
   name: "clients-list",
   props: ["clients"],
   components: {
-    "list-item": ListItem
-  },
-  methods: {
-
+    "client-list-item": ClientListItem
   }
 }
 </script>
