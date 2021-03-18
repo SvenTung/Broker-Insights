@@ -27,13 +27,11 @@ export default {
 
   //updates a client's policies
   updatePolicies(payload) {
-    const id = payload.id;
-    const policies = {
-      policies: payload.client.policies
-    };
+    const id = payload._id;
+    delete payload._id;
     return fetch(baseURL + id, {
       method: "PUT",
-      body: JSON.stringify(policies),
+      body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }
     }).then(res => res.json());
   },
